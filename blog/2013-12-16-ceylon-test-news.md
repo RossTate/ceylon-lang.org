@@ -7,21 +7,21 @@ tab: blog
 tags: [test, tools, progress]
 ---
 
-Ceylon has support for unit testing since milestone four, 
+Ceylon has had support for unit testing since milestone four, 
 but its functionality was pretty limited due lack of annotations and meta-model at that time.
 
 Fortunately this is not true anymore! 
-With first version of Ceylon was also released completely rewritten `ceylon.test` module.
-So lets see what is new and how can be used now.
+With version 1.0 of Ceylon we also released a completely rewritten `ceylon.test` module.
+So let’s see what’s new and how we can use it now.
 
 
 ## Tests annotations
 
-Tests are now declaratively marked with annotation `test`
-and can be written like nullary top-level functions or methods inside top-level class, 
-in case that you want to group multiple tests together.
+Tests are now declaratively marked with the `test` annotation 
+and can be written as top-level functions or methods inside top-level class, 
+in case you want to group multiple tests together.
 
-Inside tests, assertions can be evaluated by using the language's `assert` statement 
+Inside tests, assertions can be evaluated by using the language’s `assert` statement 
 or with the various _assert..._ functions, for example `assertEquals`, `assertThatException` etc.
 
 <!-- try: -->
@@ -34,12 +34,13 @@ or with the various _assert..._ functions, for example `assertEquals`, `assertTh
         }
         
         ...
+    }
 
-Common initialization logic, which is same for several tests, 
-can be placed into functions or methods and marked with annotations `beforeTest` or `afterTest`.
-Test framework will invoke them automatically before or after each test in its scope.
-So marked top-level functions will be invoked for each test in same package 
-and marked methods will be invoked for each test in same class.
+Common initialization logic, which is shared by several tests, 
+can be placed into functions or methods and marked with the `beforeTest` or `afterTest` annotations.
+The test framework will invoke them automatically before or after each test in its scope.
+So top-level initialization functions will be invoked for each test in the same package, 
+while initialization methods will be invoked for each test in the same class.
 
 <!-- try: -->
     class DeathStarTest() {
@@ -51,33 +52,36 @@ and marked methods will be invoked for each test in same class.
         void dispose() => station.shutdownSystems();
         
         ...
+    }
      
 Sometimes you want to temporarily disable a test or a group of tests. 
-This can be done via the <code>ignore</code> annotation.
-This way the test will not be executed, but will be covered in summary tests result. 
-Ignore annotation can be used on concrete test, or class which contains test, or event on whole package or module.
+This can be done via the `ignore` annotation.
+This way the test will not be executed, but will be covered in the summary tests result. 
+Ignore annotation can be used on test functions/methods, or on classes which contains tests,
+or even on packages or modules.
 
 <!-- try: -->
     test
     ignore("still not implemented")
     void shouldBeFasterThanLight() {
+    }
 
 
 ## Test command
 
-Our command line toolset has been enhanced by the new command `ceylon test`, 
-which allow simply execute tests in specified modules.
+Our command line toolset has been enhanced by the new `ceylon test` command, 
+which allows you to easily execute tests in specific modules.
 
-The following command will execute all tests in module `com.acme.foo/1.0.0`
-and will print report about them to console.
+The following command will execute every test in the `com.acme.foo/1.0.0` module
+and will print a report about them to console.
 
 <!-- try: -->
 <!-- lang:bash -->
     $ ceylon test com.acme.foo/1.0.0
 
-You can execute only particular tests with usage of `--test` option, 
-where syntax for value is similar to declaration literals. 
-The following examples will show you, how to execute tests only in specified package, class or function.
+You can execute specific tests with the `--test` option, 
+which takes a list of full-qualified declarations literals as values. 
+The following examples show how to execute only the tests in a specified package, class or function.
 
 <!-- try: -->
 <!-- lang:bash -->
@@ -86,15 +90,15 @@ The following examples will show you, how to execute tests only in specified pac
     $ ceylon test --test='function com.acme.foo.bar::baz' com.acme.foo/1.0.0
 
 
-More details about this command can be found  
+More details about this command can be found
 [here](/documentation/current/reference/tool/ceylon/subcommands/ceylon-test.html).
 
 
 ## Next version
 
-In upcoming version, we will introduce another improvements.
+In the next version, we will introduce other improvements.
 
-There will be test suite annotation, which allow combine several tests or test suites and run them together.
+There will be a test suite annotation, which allows you to combine several tests or test suites to run them together:
 
 <!-- try: -->
     testSuite({`class YodaTest`,
@@ -103,7 +107,7 @@ There will be test suite annotation, which allow combine several tests or test s
     shared void starwarsTestSuite() {}
 
     
-Support for declaratively specify custom test listeners, which will be notified during test execution.    
+You will be able to declare custom test listeners, which will be notified during test execution:    
 
 <!-- try: -->
     testListeners({`class DependencyInjectionTestListener`,
@@ -111,12 +115,12 @@ Support for declaratively specify custom test listeners, which will be notified 
     package com.acme;
     
     
-And support for declaratively specified custom implementation of test executor, which is responsible for running tests.
+And finally you will be able to specify custom implementation of the test executor, which is responsible for running tests:
 
 <!-- try: -->
     testExecutor(`class ArquillianTestExecutor`)
     package com.acme;
 
 
-_Please note, that these API is not final yet, and can change.
-If you want to share with us with your thoughts about it, don't hesitate and [contact us](/community)._
+_Please note, that these APIs are not final yet, and can change.
+If you want to share your thoughts about it, don't hesitate and [contact us](/community)._
