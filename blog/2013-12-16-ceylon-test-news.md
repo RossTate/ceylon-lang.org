@@ -67,6 +67,12 @@ or even on packages or modules.
     }
 
 
+All these features are of course supported in our Ceylon IDE. 
+Where you can create a _Ceylon Test Launch Configuration_ 
+or easily select what you want to run in the _Ceylon Explorer_ and via context menu use _Run-As → Ceylon Test_.
+
+![test-result-view](/images/screenshots/ceylon-test-plugin/test-result-view.png)
+
 ## Test command
 
 Our command line toolset has been enhanced by the new `ceylon test` command, 
