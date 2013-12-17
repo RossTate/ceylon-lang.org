@@ -69,7 +69,7 @@ or even on packages or modules.
 
 All these features are of course supported in our Ceylon IDE. 
 Where you can create a _Ceylon Test Launch Configuration_ 
-or easily select what you want to run in the _Ceylon Explorer_ and via context menu use _Run-As → Ceylon Test_.
+or easily select what you want to run in the _Ceylon Explorer_ and in context menu select _Run-As → Ceylon Test_.
 
 ![test-result-view](/images/screenshots/ceylon-test-plugin/test-result-view.png)
 
